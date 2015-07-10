@@ -1,0 +1,28 @@
+<!--@Author Sebastian Börebäck 2015-07-06-->
+<head>
+    <base href="/">
+</head>
+<body ng-app="saydone"  layout="row" layout-align="top center">
+
+    <!--Sidebar-->
+    <md-sidenav ng-include="'sidenav.ng.html'" class="md-whiteframe-z2" md-component-id="left">
+    <!--<md-sidenav ng-include="'sidenav.ng.html'" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">-->
+    </md-sidenav>
+
+    <div flex layout="column" tabindex="-1" role="main" class="md-whiteframe-z2">
+        <!--main Toolbar-->
+        <div ng-include="'toolbar.ng.html'" ng-controller="AppCtrl" class="md-fixed md-whiteframe-z1"></div>
+
+        <!--Floting button-->
+        <!--TODO maybe use-->
+        <!--<md-button class="md-fab md-fab-bottom-right" aria-label="Add" >-->
+            <!--<ng-md-icon icon="add" size="32" style="fill: white" class="ng-icon-lg"></ng-md-icon>-->
+        <!--</md-button>-->
+
+        <md-divider></md-divider>
+        <!--Main content-->
+        <md-content flex ng-include="'index.ng.html'" ng-controller="AppCtrl"></md-content>
+
+    </div>
+    <!--@Author Sebastian Börebäck 2015-07-06-->
+</body>

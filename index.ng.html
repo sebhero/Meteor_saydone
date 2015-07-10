@@ -1,0 +1,98 @@
+    <div>
+        <md-content>
+            <form layout="row" layout-align="start center" layout-margin>
+                <md-input-container flex="33">
+                    <label>Add task</label>
+                    <input ng-model="newTask.title">
+                    <!--<input ng-model="task.title">-->
+                </md-input-container>
+                <div layout-margin>
+                    <md-button flex="10" ng-click="addTask(newTask); newTask='';"
+                               ng-show="newTask.title"
+                               class="md-fab md-mini md-primary"
+                            aria-label="Add a new task">
+                        <ng-md-icon icon="add" style="fill:white" ></ng-md-icon>
+                    </md-button>
+                </div>
+            </form>
+        </md-content>
+
+        <!--Search toolbar-->
+        <div layout="row">
+            <ng-md-icon icon="search"></ng-md-icon>
+            <md-input-container md-theme="input" flex>
+                <label>enter search</label>
+                <input ng-model="searchFilter" type="search">
+            </md-input-container>
+        </div>
+
+        <h1>Todo list</h1>
+        <!--The task list-->
+        <div layout="column" >
+            <br>
+            <md-content  class="md-whiteframe-z1" ng-repeat="task in todos | filter:searchFilter">
+                <div layout="row">
+                    <md-button class="md-button ng-icon-lg" aria-label="Check done button"
+                               ng-disabled="isTimerRunning && !task.isDone && !task.isRunning"
+                               ng-click="setTaskDone(task)">
+                        <ng-md-icon ng-if="!task.isDone" icon="check_box_outline_blank" size="42"
+                                    style="fill: yellow"
+                                    class="ng-icon-lg">
+                        </ng-md-icon>
+                        <ng-md-icon ng-if="task.isDone" icon="done" size="42"
+                                    style="fill: green"
+                                    class="ng-icon-lg"></ng-md-icon>
+                    </md-button>
+
+                    <p>{{task.isRunning? task.runTime:task.avg | prettyTime}}</p>
+
+                    <md-button flex ng-click="showDetails = !showDetails">{{task.title}}</md-button>
+
+                    <md-button ng-hide="task.isDone || isTimerRunning && !task.isRunning"
+                               ng-click="startTask(task)"
+                            aria-label="Start or pause timer">
+                        <ng-md-icon icon="timer" style="fill:{{ task.isRunning? 'orange':'green' }}">
+                        </ng-md-icon>
+
+                    </md-button>
+                </div>
+
+                <!--Showdetails-->
+                <div ng-show="showDetails" class="searchbar-show-hide">
+                    <p>More Details</p>
+                    <fieldset class="standard" >
+                        <legend>Time measurements</legend>
+                        <div layout="row" layout-align="space-around start">
+                            <p>Avg: {{task.avg | prettyTime}}</p>
+                            <p>Min: {{task.min | prettyTime}}</p>
+                            <p>Max: {{task.max | prettyTime}}</p>
+                        </div>
+                        <div layout="row" layout-align="space-around start">
+                            <p>Total dones: {{ task.totalDones }}</p>
+                        </div>
+                    </fieldset>
+                    <br>
+                    <md-input-container flex="50">
+                        <label>Title</label>
+                        <input ng-model="task.title">
+                    </md-input-container>
+                    <div layout="row" layout-align="space-around start">
+                        <md-button class="md-button">
+                            <ng-md-icon icon="check" size="40" class="ng-icon-lg" style="fill: green"></ng-md-icon>
+                            <div>Save</div>
+                        </md-button>
+                        <md-button class="md-button">
+                            <ng-md-icon icon="restore" size="40" class="ng-icon-lg" style="fill: #ffc628"></ng-md-icon>
+                            <div>Reset time</div>
+                        </md-button>
+                        <md-button class="md-button" ng-click="deleteTask(task);">
+                            <ng-md-icon icon="delete" size="40" class="ng-icon-lg" style="fill: red"></ng-md-icon>
+                            <div>Delete</div>
+                        </md-button>
+                    </div>
+                </div>
+            </md-content>
+            <!-- new column -->
+        </div>
+        <md-divider></md-divider>
+    </div>
