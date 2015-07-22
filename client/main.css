@@ -1,0 +1,17 @@
+ng-md-icon{
+    display: block !important
+}
+.ng-icon-lg{
+    height: 2.4rem;
+    width: 2.8rem;
+}
+.searchbar-show-hide {
+    -webkit-transition:all ease 0.3s;
+    transition:all ease 0.3s;
+    transform: translateY(0px);
+}
+
+.searchbar-show-hide.ng-hide {
+    opacity:0;
+    transform: translateY(-100%);
+}

@@ -1,0 +1,15 @@
+{
+  "version": "1.5.0",
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    
+    "module": "commonjs",
+    "target": "ES5",
+    "emitDecoratorMetadata": true
+    
+  }
+}
+
