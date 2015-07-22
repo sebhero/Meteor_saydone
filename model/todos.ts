@@ -1,34 +1,11 @@
-/**
- * Created by sebadmin on 2015-07-10.
- */
-/// <reference path="../typings/tsd.d.ts" />
+///<reference path='../typingsCustom/myInterfaces.d.ts' />
 
-interface JobDAO {
-    _id?: string;
-    name: string;
-    status?: string;
-    queuedAt?: string;
-    owner?:string;
-}
-declare var Todos:Mongo.Collection<JobDAO>;
-Todos = new Mongo.Collection<JobDAO>("todos");
+declare var Todos: Mongo.Collection<ITodo>;
 
-Todos.allow({
-    insert: function (userId, todo) {
-        return userId && todo.owner === userId;
-    },
-    update: function (userId, todo, fields, modifier) {
-        if (userId !== todo.owner)
-            return false;
+Todos = new Mongo.Collection<ITodo>('todos');
 
-        return true;
-    },
-    remove: function (userId, todo) {
-        if (userId !== todo.owner)
-            return false;
-
-        return true;
-    }
-});
-
-
+////disables add/update and remove
+// Todos.allow({
+//   update: function () { return false; },
+//   remove: function () { return false; }
+// });

@@ -5,9 +5,27 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-urigo:angular
-sebhero:angular-material-icons
-angular:angular-material
+insecure
+
+# Accounts
 accounts-password
+#	accounts-facebook
+#	accounts-twitter
+#	accounts-google
+accounts-base
 accounts-ui
+
+# Angular
+urigo:angular
+urigo:angular-ui-router
+#	angularjs:angular-sanitize
+
+# Pagination
+#	angularutils:pagination
+#	tmeasday:publish-counts
+
+# Models
+#	aldeed:simple-schema
+#	aldeed:collection2
+angular:angular-material
+sebhero:angular-material-icons
