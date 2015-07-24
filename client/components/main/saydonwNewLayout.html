@@ -1,0 +1,198 @@
+<html lang="en" ng-app="StarterApp">
+		<head>
+			<link rel="stylesheet" href="angular-material.css">
+			<link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link rel="stylesheet" href="material.min.css">
+			<link rel="stylesheet" href="styles.css">
+			<link rel="stylesheet" href="main.css">
+		</head>
+	<body class=" mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+
+		<div ng-controller="AppCtrl as main" class=" mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+			<md-toolbar>
+					<header class="md-toolbar-tools" layout='row'>
+						<md-button class="md-icon-button"
+						 aria-label="Menu" hide-gt-sm flex='15'
+						 ng-click="main.toggleLeft();">
+							<ng-md-icon icon="menu" style="fill:white">
+							</ng-md-icon>
+						</md-button>
+						<div flex='33'>
+							<h3>Saydone</h3>
+						</div>
+						<div flex layout-fill></div>
+						<div hide-sm flex='25'>
+						<br>
+							<md-input-container md-no-float layout="row" >
+								<i class="material-icons" layout-padding>search</i>
+								<input ng-model="searchFilter"
+									type="search" placeholder="Search"
+									 style="color:white">
+							</md-input-container>
+						</div>
+						<div flex='15'></div>
+
+					</header>
+				<md-button ng-show="!showInputAdd" class="md-fab md-fab-top-right"
+				ng-click="showInputAdd=!showInputAdd">
+					<i class="material-icons">add</i>
+				</md-button>
+			</md-toolbar>
+			<md-content ng-show="showInputAdd">
+				<form layout="row" layout-align="center center" layout-padding>
+						<md-input-container flex-sm='80' flex-md='40' flex-gt-md='25' >
+								<label>Add task</label>
+								<input ng-model="main.newTask.title">
+						</md-input-container>
+						<div layout-margin>
+								<md-button flex="10"
+										ng-click="main.addTask(main.newTask);
+												 main.newTask='';showInputAdd=!showInputAdd;"
+													 ng-show="main.newTask.title"
+													 class="md-fab md-mini md-primary"
+												aria-label="Add a new task">
+										<ng-md-icon icon="add" style="fill:white" ></ng-md-icon>
+								</md-button>
+						</div>
+				</form>
+			</md-content>
+
+<!--			TODO fix sidenavbar-->
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+	<p>test</p>
+			<md-button ng-click="main.toggleLeft()" class="md-primary">
+				Toggle left
+			</md-button>
+			<md-input-container md-no-float layout="row" >
+						<i class="material-icons">search</i>
+						<input ng-model="searchFilter"
+							type="search" placeholder="Search"
+							 style="color:grey">
+					</md-input-container>
+
+</md-sidenav>
+
+<!--		main-->
+<h1 layout='row' layout-align='center end'>Todo list</h1>
+
+<div layout='columns' ng-repeat="task in main.todos">
+	<div flex-gt-sm='25'></div>
+
+	<div flex layout='row'  class="todoSection mdl-shadow--2dp">
+
+
+	<md-content flex>
+		<div layout='row'>
+			<md-button class="md-button ng-icon-lg"
+					aria-label="Check done button"
+					ng-disabled="main.thereIsATaskRunning && !task.isRunning"
+				 ng-click="main.setTaskDone(task)">
+					<ng-md-icon ng-if="!task.isDone"
+											icon="check_box_outline_blank" size="42"
+											style="fill: yellow"
+											class="ng-icon-lg">
+					</ng-md-icon>
+					<ng-md-icon ng-if="task.isDone"
+											icon="done" size="42"
+											style="fill: green"
+											class="ng-icon-lg">
+					</ng-md-icon>
+			</md-button>
+			<p>{{task.isRunning? task.runTime : (task.avg !=0)? task.avg:task.runTime | date: 'HH:mm:ss' : 'UTC'}}</p>
+			<md-button flex
+			ng-click="showDetails = !showDetails">
+			{{task.title}}
+			<md-divider></md-divider>
+			</md-button>
+
+			<md-button ng-hide="task.isDone || main.thereIsATaskRunning && !task.isRunning"
+					ng-click="main.toggleTimer(task);"
+
+							aria-label="Start or pause timer">
+					<ng-md-icon icon="timer" style="fill:{{ task.isRunning? 'orange':'green' }}">
+					</ng-md-icon>
+			</md-button>
+		</div>
+
+		<div ng-show="showDetails"
+				class="searchbar-show-hide">
+			<div layout='columns' layout-align='center center' layout-padding>
+				<h5>[ More Details ]</h5>
+			</div>
+
+			<div offset-gt-sm='10' offset-sm='5' layout='row' style="font-size:large">
+				<md-input-container flex="40" style="font-size:large">
+						<label>Title</label>
+						<input ng-model="task.title">
+				</md-input-container>
+			</div>
+			<fieldset class="standard" >
+					<legend offset-gt-sm='10' offset-sm='5'><b>Time measurements</b></legend>
+					<div layout="row" layout-align="space-around start">
+							<p><b>Avg:</b> {{task.avg | date: 'HH:mm:ss' : 'UTC'}}</p>
+							<p><b>Min:</b> {{task.min | date: 'HH:mm:ss' : 'UTC'}}</p>
+							<p><b>Max:</b> {{task.max | date: 'HH:mm:ss' : 'UTC'}}</p>
+					</div>
+					<div layout="row" layout-align="space-around start">
+							<p><b>Total dones:</b> {{ task.totalDones }}</p>
+					</div>
+			</fieldset>
+			<br>
+
+			<div layout="row" layout-align="space-around start">
+					<md-button class="md-button">
+							<ng-md-icon icon="check" size="40" class="ng-icon-lg" style="fill: green"></ng-md-icon>
+							<div>Save</div>
+					</md-button>
+					<md-button class="md-button"
+							ng-click="main.resetTime(task)">
+							<ng-md-icon icon="restore" size="40" class="ng-icon-lg" style="fill: #ffc628"></ng-md-icon>
+							<div>Reset time</div>
+					</md-button>
+					<md-button class="md-button"
+							ng-click="main.deleteTask(task);">
+							<ng-md-icon icon="delete" size="40" class="ng-icon-lg" style="fill: red"></ng-md-icon>
+							<div>Delete</div>
+					</md-button>
+			</div>
+		</div>
+
+
+	</md-content>
+</div>
+
+	<div flex-gt-sm='25'></div>
+</div>
+<!--New testing END-->
+<br>
+<br>
+<br>
+
+
+<!--<div layout='row' layout-align='center center'>-->
+
+<!--	<div flex='25'></div>-->
+
+<!--		<md-content layout-padding flex=80 class="md-whiteframe-z2">-->
+<!--		<md-content layout='column' layout-align='center center'  class="mdl-color--grey-100" flex-wrap>-->
+
+<!--<div flex='25'></div>-->
+</div>
+<!--END main-->
+
+
+
+		<!-- Angular Material Dependencies -->
+<!--		<script src="material.min.js"></script>-->
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-animate.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-aria.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.5.0/angular-material-icons.min.js"></script>
+
+		<script src="angular-material.js"></script>
+		<script src="testApp.js"></script>
+
+	</body>
+</html>
