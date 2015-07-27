@@ -6,25 +6,14 @@ var Saydone;
      */
     // class Main extends TestTimer{
     var Main = (function () {
-        function Main($meteor, $log, timerService) {
+        function Main($meteor, $log, timerService, todoService) {
             this.$log = $log;
             this.timerService = timerService;
+            this.todoService = todoService;
             this.thereIsATaskRunning = false;
             this.componentName = 'main';
             this.todos = $meteor.collection(Todos).subscribe('todos');
         }
-        Main.prototype.addTask = function (newTask) {
-            this.$log.info("add task");
-            newTask.avg = 0;
-            newTask.min = 0;
-            newTask.max = 0;
-            newTask.totalDones = 0;
-            newTask.totalTime = 0;
-            newTask.isRunning = false;
-            newTask.isDone = false;
-            newTask.owner = Meteor.userId();
-            this.todos.push(newTask);
-        };
         Main.prototype.deleteTask = function (task) {
             this.todos.splice(this.todos.indexOf(task), 1);
         };
@@ -51,7 +40,8 @@ var Saydone;
                 else {
                     //calc avg min max time
                     if (task.min > task.runTime || task.min == 0) {
-                        task.min = task.runTime;
+                        if (task.runTime != 0)
+                            task.min = task.runTime;
                     }
                     if (task.max < task.runTime) {
                         task.max = task.runTime;
@@ -60,7 +50,7 @@ var Saydone;
                     task.totalTime += task.runTime;
                     task.avg = task.totalTime / task.totalDones;
                 }
-                task.runTime = 0;
+                this.resetTime(task);
             }
             task.isDone = !task.isDone;
             this.$log.info("setting is done/or not " + task.isDone);
@@ -69,7 +59,7 @@ var Saydone;
             this.timerService.reset(task);
             this.thereIsATaskRunning = false;
         };
-        Main.$inject = ['$meteor', '$log', 'TimerService'];
+        Main.$inject = ['$meteor', '$log', 'TimerService', 'TodoService'];
         return Main;
     })();
     function shmckMain() {

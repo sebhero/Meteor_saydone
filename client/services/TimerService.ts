@@ -1,7 +1,7 @@
-/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../typingsCustom/myInterfaces.d.ts" />
 
 
-module Saydone{
+namespace Saydone{
 	/**
 	 * A timer Service handling stopwatch time.
 	 */

@@ -1,5 +1,82 @@
-<md-content style="height:300px;">
-  <p>Hello, {{navbar.componentName}}!</p>
-  <p>put in a dialog</p>
-  <meteor-include src="loginButtons"></meteor-include>
+<md-toolbar>
+	<header class="md-toolbar-tools" layout='row'>
+		<meteor-include src="loginButtons" hide-sm></meteor-include>
+		<md-button class="md-icon-button"
+				   aria-label="Menu" hide-gt-sm flex='15'
+				   ng-click="navbar.toggleLeft();">
+			<ng-md-icon icon="menu" style="fill:white;">
+			</ng-md-icon>
+		</md-button>
+		<div flex='33'>
+			<h3>Saydone</h3>
+		</div>
+		<div flex layout-fill></div>
+		<div hide-sm flex='25'>
+			<br>
+			<md-input-container md-no-float layout="row">
+				<ng-md-icon icon="search" style="fill:white">
+				</ng-md-icon>
+				<input ng-model="navbar.todoService.searchFilter"
+					   type="search" placeholder="Search"
+					   style="color:white">
+			</md-input-container>
+		</div>
+		<div flex='15'></div>
+	</header>
+	<!--class="md-fab md-fab-top-right"-->
+	<md-button ng-show="!showInputAdd"
+			   class="md-fab md-fab-top-right"
+			   ng-click="showInputAdd=!showInputAdd">
+		<ng-md-icon icon="add" size="32" style="fill:white; height: 32px; width: 32px;">
+		</ng-md-icon>
+	</md-button>
+</md-toolbar>
+
+
+<!--<md-content ng-show="!showInputAdd">-->
+<md-content ng-show="showInputAdd">
+	<div layout="row" layout-align="center center">
+		<md-button
+				ng-click="showInputAdd=!showInputAdd; navbar.newTaskTitle='';"
+				class="md-fab md-mini md-warn"
+				aria-label="Close add task">
+			<ng-md-icon icon="close" style="fill:white"></ng-md-icon>
+		</md-button>
+		<form layout="row" layout-align="center center" layout-padding ng-submit="navbar.submitTask()">
+			<md-input-container flex-sm='80' flex-md='50' flex-gt-md='50'>
+				<label>Add task</label>
+				<input ng-model="navbar.newTaskTitle">
+			</md-input-container>
+			<div layout-margin>
+				<md-button
+						ng-click="showInputAdd=!showInputAdd;"
+						ng-show="navbar.newTaskTitle"
+						class="md-fab md-mini md-primary"
+						aria-label="Add a new task">
+					<ng-md-icon icon="add" style="fill:white"></ng-md-icon>
+				</md-button>
+			</div>
+		</form>
+	</div>
 </md-content>
+
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+	<h3>Saydone</h3>
+	<md-divider></md-divider>
+	<br/>
+	<meteor-include src="loginButtons"></meteor-include>
+	<md-input-container md-no-float layout="row">
+		<ng-md-icon icon="search" style="fill:white"></ng-md-icon>
+		<input ng-model="navbar.todoService.searchFilter"
+			   type="search" placeholder="Search"
+			   style="color:grey">
+	</md-input-container>
+	<md-button ng-click="navbar.todoService.searchFilter='';">
+		clear
+	</md-button>
+	<md-button ng-click="navbar.toggleLeft()" class="md-primary">
+		Close
+	</md-button>
+
+</md-sidenav>

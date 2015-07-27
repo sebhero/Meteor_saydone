@@ -1,7 +1,8 @@
 ///<reference path='../../../typingsCustom/myInterfaces.d.ts' />
 
 
-module Saydone{ 
+namespace Saydone{
+	declare var Todos: Mongo.Collection<ITodo>;
 /**
  * Main
  */
@@ -9,16 +10,15 @@ module Saydone{
 class Main{
 	
 	componentName:string;
-	todos:Array<ITodo>;
 	thereIsATaskRunning:boolean = false;
+	private todos:Array<ITodo>;
 
+	static $inject = ['$meteor','$log','TimerService','TodoService'];
 
-	
-	static $inject = ['$meteor','$log','TimerService'];
 	
 	constructor($meteor:angular.meteor.IMeteorService,
-		private $log:ng.ILogService,private timerService:TimerService
-		
+		private $log:ng.ILogService,private timerService:TimerService,
+				private todoService:TodoService
 		) {
 			
 		this.componentName = 'main';
@@ -28,21 +28,7 @@ class Main{
 		this.todos = $meteor.collection(Todos).subscribe('todos');
 	}
 	
-	addTask(newTask:ITodo){
-		this.$log.info("add task");
-		
-		
-		newTask.avg=0;
-		newTask.min=0;
-		newTask.max=0;
-		newTask.totalDones=0;
-		newTask.totalTime=0;
-        newTask.isRunning = false;
-        newTask.isDone = false;
-        newTask.owner = Meteor.userId();
-		
-		this.todos.push(newTask);
-	}
+
 	
 	deleteTask(task)
 	{
@@ -80,7 +66,8 @@ class Main{
 	            //calc avg min max time
 	            if(task.min > task.runTime || task.min == 0)
 	            {
-	                task.min = task.runTime;
+					if(task.runTime != 0)
+	                	task.min = task.runTime;
 	            }
 	
 	            if(task.max < task.runTime)
@@ -93,7 +80,7 @@ class Main{
 	
 	            task.avg = task.totalTime/task.totalDones;
 	        }
-        	task.runTime=0;
+			this.resetTime(task);
 		}
 		
 		task.isDone = !task.isDone;

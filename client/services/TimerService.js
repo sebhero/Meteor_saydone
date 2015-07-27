@@ -1,4 +1,4 @@
-/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../typingsCustom/myInterfaces.d.ts" />
 var Saydone;
 (function (Saydone) {
     /**

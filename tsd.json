@@ -6,19 +6,22 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "angularjs/angular.d.ts": {
-      "commit": "76e1dedf0bada455c0b75abeec3206d3aa5bd892"
+      "commit": "db3a54c801e29e73bdaae327a64ed7991778c958"
     },
     "jquery/jquery.d.ts": {
-      "commit": "76e1dedf0bada455c0b75abeec3206d3aa5bd892"
+      "commit": "db3a54c801e29e73bdaae327a64ed7991778c958"
     },
     "meteor/meteor.d.ts": {
-      "commit": "76e1dedf0bada455c0b75abeec3206d3aa5bd892"
+      "commit": "db3a54c801e29e73bdaae327a64ed7991778c958"
     },
     "angular-meteor/angular-meteor.d.ts": {
-      "commit": "76e1dedf0bada455c0b75abeec3206d3aa5bd892"
+      "commit": "db3a54c801e29e73bdaae327a64ed7991778c958"
     },
     "angular-ui-router/angular-ui-router.d.ts": {
-      "commit": "76e1dedf0bada455c0b75abeec3206d3aa5bd892"
+      "commit": "db3a54c801e29e73bdaae327a64ed7991778c958"
+    },
+    "angular-material/angular-material.d.ts": {
+      "commit": "db3a54c801e29e73bdaae327a64ed7991778c958"
     }
   }
 }

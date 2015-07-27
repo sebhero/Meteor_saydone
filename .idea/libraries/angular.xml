@@ -14,7 +14,6 @@
       <root url="file://$PROJECT_DIR$/../0packages/bower_components/angular/angular.js" />
       <root url="file://$PROJECT_DIR$/../0packages/bower_components/angular-material/angular-material.js" />
     </CLASSES>
-    <JAVADOC />
     <SOURCES />
   </library>
 </component>

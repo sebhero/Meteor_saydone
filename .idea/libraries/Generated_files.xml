@@ -2,19 +2,32 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/client/lib/app.js" />
-        <item url="file://$PROJECT_DIR$/server/server.js" />
+        <item url="file://$PROJECT_DIR$/client/components/main/main.js" />
+        <item url="file://$PROJECT_DIR$/server/startup/startSever.js" />
+        <item url="file://$PROJECT_DIR$/client/services/TimerService.js" />
+        <item url="file://$PROJECT_DIR$/server/todos.publish.js" />
+        <item url="file://$PROJECT_DIR$/client/components/navbar/navbar.js" />
         <item url="file://$PROJECT_DIR$/model/todos.js" />
-        <item url="file://$PROJECT_DIR$/zzz.ts-compiler.js" />
+        <item url="file://$PROJECT_DIR$/client/routes.js" />
+        <item url="file://$PROJECT_DIR$/client/components/main/testTimer.js" />
+        <item url="file://$PROJECT_DIR$/client/lib/app.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/client/lib/app.js" />
-      <root url="file://$PROJECT_DIR$/server/server.js" />
-      <root url="file://$PROJECT_DIR$/model/todos.js" />
       <root url="file://$PROJECT_DIR$/zzz.ts-compiler.js" />
+      <root url="file://$PROJECT_DIR$/server/server.js" />
+      <root url="file://$PROJECT_DIR$/zzz.ts-compiler.js" />
+      <root url="file://$PROJECT_DIR$/server/server.js" />
+      <root url="file://$PROJECT_DIR$/client/components/main/main.js" />
+      <root url="file://$PROJECT_DIR$/server/startup/startSever.js" />
+      <root url="file://$PROJECT_DIR$/client/services/TimerService.js" />
+      <root url="file://$PROJECT_DIR$/server/todos.publish.js" />
+      <root url="file://$PROJECT_DIR$/client/components/navbar/navbar.js" />
+      <root url="file://$PROJECT_DIR$/model/todos.js" />
+      <root url="file://$PROJECT_DIR$/client/routes.js" />
+      <root url="file://$PROJECT_DIR$/client/components/main/testTimer.js" />
+      <root url="file://$PROJECT_DIR$/client/lib/app.js" />
     </CLASSES>
-    <JAVADOC />
     <SOURCES />
   </library>
 </component>
