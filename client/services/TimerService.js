@@ -21,13 +21,21 @@ var Saydone;
          */
         TimerService.prototype.start = function (task) {
             var _this = this;
+            this.$log.info("start task");
+            this.$log.info("total: " + task.totalElapsedMs);
+            this.$log.info("start: " + task.startTime);
+            this.$log.info("run: " + task.runTime);
+            if (task.totalElapsedMs < 0 || isNaN(task.totalElapsedMs)) {
+                task.totalElapsedMs = 0;
+            }
             if (!this.timerPromise) {
                 task.startTime = this.startTime = new Date();
                 task.isRunning = true;
                 this.timerPromise = this.$interval(function (test) {
                     var now = new Date();
                     _this.elapsedMs = now.getTime() - _this.startTime.getTime();
-                    task.runTime = _this.elapsedMs + _this.totalElapsedMs;
+                    // task.runTime=this.elapsedMs+this.totalElapsedMs;
+                    task.runTime = _this.elapsedMs + task.totalElapsedMs;
                     // this.$log.info("count: "+this.elapsedMs);
                     // this.$log.info("start: "+this.startTime);
                     // this.$log.info("now: "+now);
@@ -41,8 +49,8 @@ var Saydone;
             if (this.timerPromise) {
                 this.$interval.cancel(this.timerPromise);
                 this.timerPromise = undefined;
-                this.totalElapsedMs += this.elapsedMs;
-                task.runTime = this.totalElapsedMs;
+                task.totalElapsedMs += this.elapsedMs;
+                task.runTime = task.totalElapsedMs;
                 this.elapsedMs = 0;
                 // this.$log.info("stop total: "+this.totalElapsedMs);
                 task.isRunning = false;
@@ -54,7 +62,7 @@ var Saydone;
         TimerService.prototype.reset = function (task) {
             this.stop(task);
             task.startTime = this.startTime = new Date();
-            task.runTime = this.totalElapsedMs = this.elapsedMs = 0;
+            task.runTime = task.totalElapsedMs = this.elapsedMs = 0;
         };
         /**
          * Gets the time that the timer has run
@@ -78,10 +86,12 @@ var Saydone;
          */
         TimerService.prototype.toggle = function (task) {
             if (this.timerPromise) {
+                this.$log.info("calling STOP on timer");
                 this.stop(task);
                 return false;
             }
             else {
+                this.$log.info("calling START on timer");
                 this.start(task);
                 return true;
             }
