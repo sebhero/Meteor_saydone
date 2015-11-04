@@ -54,7 +54,7 @@
 				<fieldset class="standard">
 					<legend offset-gt-sm='10' offset-sm='5'><b>Time measurements</b></legend>
 					<div layout="row" layout-align="space-around start">
-						<p><b>Avg:</b> {{task.avg | date: 'HH:mm:ss' : 'UTC'}}</p>
+						<p><b>Avg:</b> {{ task.avg | date: 'HH:mm:ss' : 'UTC' }}</p>
 
 						<p><b>Min:</b> {{task.min | date: 'HH:mm:ss' : 'UTC'}}</p>
 

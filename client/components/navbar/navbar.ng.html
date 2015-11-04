@@ -1,6 +1,7 @@
 <md-toolbar>
 	<header class="md-toolbar-tools" layout='row'>
-		<meteor-include src="loginButtons" hide-sm></meteor-include>
+		<!--<meteor-include src="loginButtons" hide-sm></meteor-include>-->
+		<blaze-template name="loginButtons" hide-sm></blaze-template>
 		<md-button class="md-icon-button"
 				   aria-label="Menu" hide-gt-sm flex='15'
 				   ng-click="navbar.toggleLeft();">
@@ -65,7 +66,9 @@
 	<h3>Saydone</h3>
 	<md-divider></md-divider>
 	<br/>
-	<meteor-include src="loginButtons"></meteor-include>
+	<!--<meteor-include src="loginButtons"></meteor-include>-->
+	<blaze-template name="loginButtons"></blaze-template>
+	<br/>
 	<md-input-container md-no-float layout="row">
 		<ng-md-icon icon="search" style="fill:white"></ng-md-icon>
 		<input ng-model="navbar.todoService.searchFilter"
