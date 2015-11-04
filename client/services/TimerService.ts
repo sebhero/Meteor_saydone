@@ -29,6 +29,16 @@ namespace Saydone{
 		 * Starts the timer
 		 */
 		start(task:ITodo):void{
+			// this.$log.info("start task");
+			// this.$log.info("total: "+task.totalElapsedMs);
+			// this.$log.info("start: "+task.startTime);
+			// this.$log.info("run: "+task.runTime);
+			
+			if(task.totalElapsedMs < 0 || isNaN(task.totalElapsedMs))
+			{
+				task.totalElapsedMs = 0;
+			}
+			
 			if(!this.timerPromise)
 			{
 				task.startTime=this.startTime = new Date();
@@ -37,7 +47,8 @@ namespace Saydone{
 					var now = new Date();
 					
 					this.elapsedMs = now.getTime() - this.startTime.getTime();
-					task.runTime=this.elapsedMs+this.totalElapsedMs;
+					// task.runTime=this.elapsedMs+this.totalElapsedMs;
+					task.runTime=this.elapsedMs+task.totalElapsedMs;
 					// this.$log.info("count: "+this.elapsedMs);
 					// this.$log.info("start: "+this.startTime);
 					// this.$log.info("now: "+now);
@@ -53,8 +64,8 @@ namespace Saydone{
 			if(this.timerPromise){
 	        	this.$interval.cancel(this.timerPromise);
 				this.timerPromise = undefined;
-				this.totalElapsedMs += this.elapsedMs;
-				task.runTime=this.totalElapsedMs;
+				task.totalElapsedMs += this.elapsedMs;
+				task.runTime=task.totalElapsedMs;
 				this.elapsedMs =0;
 				// this.$log.info("stop total: "+this.totalElapsedMs);
 				task.isRunning=false;
@@ -67,7 +78,7 @@ namespace Saydone{
 		reset(task:ITodo){
 			this.stop(task);
 			task.startTime=this.startTime = new Date();
-			task.runTime=this.totalElapsedMs = this.elapsedMs = 0;
+			task.runTime=task.totalElapsedMs = this.elapsedMs = 0;
 		}
 		
 		/**
@@ -96,9 +107,11 @@ namespace Saydone{
 		 */
 		toggle(task:ITodo){
 			if(this.timerPromise){
+				this.$log.info("calling STOP on timer");
 				this.stop(task);
 				return false;
 			}else{
+				this.$log.info("calling START on timer");
 				this.start(task);
 				return true;
 			}

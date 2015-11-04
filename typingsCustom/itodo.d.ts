@@ -16,5 +16,6 @@ interface ITodo{
     startTime?:Date;
     endTime?:Date;
     runTime?:number;
+    totalElapsedMs?:number;
 
 }
