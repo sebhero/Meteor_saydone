@@ -20,11 +20,11 @@ var Saydone;
          * Starts the timer
          */
         TimerService.prototype.start = function (task) {
+            // this.$log.info("start task");
+            // this.$log.info("total: "+task.totalElapsedMs);
+            // this.$log.info("start: "+task.startTime);
+            // this.$log.info("run: "+task.runTime);
             var _this = this;
-            this.$log.info("start task");
-            this.$log.info("total: " + task.totalElapsedMs);
-            this.$log.info("start: " + task.startTime);
-            this.$log.info("run: " + task.runTime);
             if (task.totalElapsedMs < 0 || isNaN(task.totalElapsedMs)) {
                 task.totalElapsedMs = 0;
             }
